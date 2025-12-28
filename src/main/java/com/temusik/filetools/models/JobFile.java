@@ -1,9 +1,8 @@
 package com.temusik.filetools.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
 import java.time.Instant;
 import java.util.UUID;
 
@@ -11,7 +10,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Table(name = "job_files")
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class JobFile {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
@@ -27,23 +26,23 @@ public class JobFile {
     private String role;
 
     @Column(name = "original_name", nullable = false)
-    private String original_name;
+    private String originalName;
 
     @Column(name = "content_type", length = 128)
-    private String content_type;
+    private String contentType;
 
     @Column(name = "size_bytes", nullable = false)
-    private Long size_bytes;
+    private Long sizeBytes;
 
     @Column(name = "storage_key", nullable = false)
-    private String storage_key;
+    private String storageKey;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant created_at;
+    private Instant createdAt;
 
     @PrePersist
     public void prePersist() {
         if (id == null) id = UUID.randomUUID();
-        if (created_at == null) created_at = Instant.now();
+        if (createdAt == null) createdAt = Instant.now();
     }
 }

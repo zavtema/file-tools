@@ -1,9 +1,7 @@
 package com.temusik.filetools.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.UUID;
 @Table(name = "jobs")
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Job {
     @Id
     @Column(name = "id", nullable = false, updatable = false)
@@ -33,27 +31,27 @@ public class Job {
     private Integer progress = 0;
 
     @Column(name = "options_json")
-    private String options_json;
+    private String optionsJson;
 
     @Column(name = "error_code", length = 64)
-    private String error_code;
+    private String errorCode;
 
     @Column(name = "error_message")
-    private String error_message;
+    private String errorMessage;
 
     @Column(name = "created_at", nullable = false, updatable = false)
-    private Instant created_at;
+    private Instant createdAt;
 
     @Column(name = "started_at")
-    private Instant started_at;
+    private Instant startedAt;
 
     @Column(name = "finished_at")
-    private Instant finished_at;
+    private Instant finishedAt;
 
     @PrePersist
     public void prePersist() {
         if (id == null) id = UUID.randomUUID(); // По умолчанию всегда идет null, поэтому всегда присваиваю новые id
-        if (created_at == null) created_at = Instant.now();
+        if (createdAt == null) createdAt = Instant.now();
         if (progress == null) progress = 0;
     }
 }
