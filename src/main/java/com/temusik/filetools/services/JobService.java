@@ -34,7 +34,7 @@ public class JobService {
                            String role,
                            String originalName,
                            String contentType,
-                           Long sizeBytes,
+                           long sizeBytes,
                            String storageKey) {
         Job job = getJobOrThrow(jobId);
         JobFile f = new JobFile();
