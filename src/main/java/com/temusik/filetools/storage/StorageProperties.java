@@ -1,7 +1,6 @@
 package com.temusik.filetools.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 @ConfigurationProperties(prefix = "app.storage") // Тот самый "доставатель" конкретного пути
 public class StorageProperties {

@@ -1,7 +1,7 @@
 package com.temusik.filetools.storage;
 
 import com.temusik.filetools.dto.StoredObject;
-import jakarta.annotation.Resource;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.UUID;
