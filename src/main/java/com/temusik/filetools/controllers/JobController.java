@@ -3,6 +3,8 @@ package com.temusik.filetools.controllers;
 import com.temusik.filetools.dto.CreateJobRequest;
 import com.temusik.filetools.dto.JobResponse;
 import com.temusik.filetools.mapper.JobMapper;
+import com.temusik.filetools.models.Job;
+import com.temusik.filetools.services.JobExecutionService;
 import com.temusik.filetools.services.JobService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import java.util.UUID;
 public class JobController {
 
     private final JobService jobService;
+    private final JobExecutionService jobExecutionService;
 
     // Создание Job
     @PostMapping()
@@ -26,6 +29,12 @@ public class JobController {
     @GetMapping("/{jobId}") // Получение Job
     public JobResponse getJob(@PathVariable UUID jobId) {
         var job = jobService.getJobOrThrow(jobId);
+        return JobMapper.toResponse(job);
+    }
+
+    @PostMapping("/{jobId}/start")
+    public JobResponse start(@PathVariable UUID jobId) {
+        Job job = jobExecutionService.startJob(jobId);
         return JobMapper.toResponse(job);
     }
 }
