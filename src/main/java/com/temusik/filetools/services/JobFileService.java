@@ -1,5 +1,6 @@
 package com.temusik.filetools.services;
 
+import com.temusik.filetools.JobStatus.JobFileRole;
 import com.temusik.filetools.dto.StoredObject;
 import com.temusik.filetools.models.JobFile;
 import com.temusik.filetools.storage.StorageService;
@@ -18,7 +19,7 @@ public class JobFileService {
 
     public JobFile saveFileToStorage(UUID jobId, MultipartFile multipartFile) {
         StoredObject storedObject = localStorageService.save(jobId, multipartFile);
-        return jobService.addFile(jobId, "INPUT",
+        return jobService.addFile(jobId, JobFileRole.INPUT,
                 storedObject.originalName(),
                 storedObject.contentType(),
                 storedObject.size(),

@@ -1,5 +1,6 @@
 package com.temusik.filetools.models;
 
+import com.temusik.filetools.JobStatus.JobFileRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +23,9 @@ public class JobFile {
     @JoinColumn(name = "job_id",nullable = false)
     private Job job;
 
-    @Column(name = "role",nullable = false, length = 16)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private JobFileRole role;
 
     @Column(name = "original_name", nullable = false)
     private String originalName;

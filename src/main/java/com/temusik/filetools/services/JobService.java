@@ -1,5 +1,8 @@
 package com.temusik.filetools.services;
 
+import com.temusik.filetools.JobStatus.JobFileRole;
+import com.temusik.filetools.JobStatus.JobStatus;
+import com.temusik.filetools.JobStatus.JobType;
 import com.temusik.filetools.models.Job;
 import com.temusik.filetools.models.JobFile;
 import com.temusik.filetools.repository.JobFileRepository;
@@ -21,17 +24,17 @@ public class JobService {
     private final JobFileRepository jobFileRepository;
     private final JobRepository jobRepository;
 
-    public Job createJob(String type, String optionsJson) {
+    public Job createJob(JobType type, String optionsJson) {
         Job job = new Job();
         job.setType(type);
-        job.setStatus("PENDING");
+        job.setStatus(JobStatus.PENDING);
         job.setProgress(0);
         job.setOptionsJson(optionsJson);
         return jobRepository.save(job); // save возвращает из бд уже сохраненную сущность
     }
 
     public JobFile addFile(UUID jobId,
-                           String role,
+                           JobFileRole role,
                            String originalName,
                            String contentType,
                            long sizeBytes,

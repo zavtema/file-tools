@@ -1,5 +1,6 @@
 package com.temusik.filetools.controllers;
 
+import com.temusik.filetools.JobStatus.JobType;
 import com.temusik.filetools.dto.CreateJobRequest;
 import com.temusik.filetools.dto.JobResponse;
 import com.temusik.filetools.mapper.JobMapper;
@@ -22,7 +23,7 @@ public class JobController {
     // Создание Job
     @PostMapping()
     public JobResponse createJob(@RequestBody CreateJobRequest req) { // Spring будет парсить ровно по ключам, имена ключей ДОЛЖНЫ СОВПАДАТЬ
-        var job = jobService.createJob(req.type(), req.optionsJson());
+        var job = jobService.createJob(JobType.valueOf(req.type()), req.optionsJson());
         return JobMapper.toResponse(job);
     }
 

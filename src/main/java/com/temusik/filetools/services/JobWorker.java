@@ -1,5 +1,6 @@
 package com.temusik.filetools.services;
 
+import com.temusik.filetools.JobStatus.JobStatus;
 import com.temusik.filetools.models.Job;
 import com.temusik.filetools.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +23,14 @@ public class JobWorker {
 
             Job job = jobRepository.findById(jobId).orElseThrow();
             job.setProgress(100);
-            job.setStatus("DONE");
+            job.setStatus(JobStatus.DONE);
             job.setFinishedAt(Instant.now());
             jobRepository.save(job);
 
         } catch (Exception e) {
             Job job = jobRepository.findById(jobId).orElse(null);
             if (job != null) {
-                job.setStatus("FAILED");
+                job.setStatus(JobStatus.FAILED);
                 job.setFinishedAt(Instant.now());
                 job.setErrorMessage(e.getMessage());
                 jobRepository.save(job);

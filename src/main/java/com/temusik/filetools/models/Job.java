@@ -1,5 +1,7 @@
 package com.temusik.filetools.models;
 
+import com.temusik.filetools.JobStatus.JobStatus;
+import com.temusik.filetools.JobStatus.JobType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +23,13 @@ public class Job {
     @OneToMany(mappedBy = "job", fetch = FetchType.LAZY) // Одна связь описанная с двух сторон, это нужно для Hibernate
     private List<JobFile> files = new ArrayList<>(); // mappedBy показывает, где уже описана эта связь, он идет в JobFile(т.к. в поле этот класс) в после job
 
-    @Column(name = "type", nullable = false, length = 32)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private JobType type;
 
-    @Column(name = "status", nullable = false, length = 16)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private JobStatus status;
 
     @Column(name = "progress", nullable = false)
     private Integer progress = 0;
