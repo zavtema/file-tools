@@ -88,4 +88,18 @@ public class LocalStorageService implements StorageService {
             throw new RuntimeException("Failed to delete file: " + storageKey, e);
         }
     }
+
+    @Override
+    public StoredObject saveBytes (UUID jobId, String storageKey, byte[] bytes, String contentType) {
+        Path root = rootPath();
+        Path target = root.resolve(storageKey).normalize();
+        if (!target.startsWith(root)) throw new IllegalArgumentException("Invalid storageKey");
+        try {
+            Files.createDirectories(target.getParent());
+            Files.write(target, bytes, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store bytes", e);
+        }
+        return new StoredObject(storageKey, Paths.get(storageKey).getFileName().toString(), (long) bytes.length, contentType);
+    }
 }

@@ -2,6 +2,8 @@ package com.temusik.filetools.services;
 
 import com.temusik.filetools.JobStatus.JobStatus;
 import com.temusik.filetools.models.Job;
+import com.temusik.filetools.processing.JobProcessor;
+import com.temusik.filetools.processing.JobProcessorRegistry;
 import com.temusik.filetools.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -13,28 +15,23 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class JobWorker {
-    private final JobRepository jobRepository;
+
+    private final JobService jobService;
+    private final JobProgressiveService progressService;
+    private final JobProcessorRegistry registry;
 
     @Async
     public void process(UUID jobId) {
         try {
+            Job job = jobService.getJobOrThrow(jobId);
 
-            Thread.sleep(3000); // Это надо завтра заменить на сам рабочий метод, все, что ниже просто меняет структуру Job на как бы "СДЕЛАНО"
+            JobProcessor processor = registry.get(job.getType());
+            processor.process(jobId);
 
-            Job job = jobRepository.findById(jobId).orElseThrow();
-            job.setProgress(100);
-            job.setStatus(JobStatus.DONE);
-            job.setFinishedAt(Instant.now());
-            jobRepository.save(job);
+            progressService.markDone(jobId);
 
         } catch (Exception e) {
-            Job job = jobRepository.findById(jobId).orElse(null);
-            if (job != null) {
-                job.setStatus(JobStatus.FAILED);
-                job.setFinishedAt(Instant.now());
-                job.setErrorMessage(e.getMessage());
-                jobRepository.save(job);
-            }
+            progressService.markFailed(jobId, e.getMessage());
         }
     }
 }
