@@ -1,15 +1,12 @@
 package com.temusik.filetools.services;
 
-import com.temusik.filetools.JobStatus.JobStatus;
 import com.temusik.filetools.models.Job;
 import com.temusik.filetools.processing.JobProcessor;
 import com.temusik.filetools.processing.JobProcessorRegistry;
-import com.temusik.filetools.repository.JobRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.UUID;
 
 @Service

@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface JobFileRepository extends JpaRepository<JobFile, UUID> {
     List<JobFile> findAllByJob_Id(UUID id);
+
 }

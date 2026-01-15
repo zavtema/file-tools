@@ -25,12 +25,10 @@ import java.util.List;
 public class PdfMergeProcessor implements JobProcessor {
 
     private final StorageService storageService;
-    private final JobFileRepository jobFileRepository;
     private final JobService jobService;
 
-    public PdfMergeProcessor(StorageService storageService, JobFileRepository jobFileRepository, JobService jobService) {
+    public PdfMergeProcessor(StorageService storageService, JobService jobService) {
         this.storageService = storageService;
-        this.jobFileRepository = jobFileRepository;
         this.jobService = jobService;
     }
 
@@ -41,7 +39,7 @@ public class PdfMergeProcessor implements JobProcessor {
 
     @Override
     public void process(UUID jobId) {
-        List<JobFile> files = jobFileRepository.findAllByJob_Id(jobId).stream()
+        List<JobFile> files = jobService.getFiles(jobId).stream()
                 .filter(f -> f.getRole() == JobFileRole.INPUT)
                 .sorted(Comparator.comparing(JobFile::getCreatedAt))
                 .toList();
