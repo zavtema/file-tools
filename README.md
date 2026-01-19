@@ -82,8 +82,8 @@ The architecture is modular and extensible: new file operations can be added by 
 
 ### Deployment
 
-🚧 **Live demo:**  
-*(link will be added later)*
+**Live demo:**  
+*https://file-tools-xbf0.onrender.com/*
 
 The project is designed to be easily deployable on platforms such as Render, Railway, Fly.io, or any VPS with Java support.
 
@@ -185,8 +185,8 @@ FileTools — это небольшой end-to-end веб-проект для б
 
 ### Деплой
 
-🚧 **Демо-версия:**  
-*(ссылка будет добавлена позже)*
+**Демо-версия:**  
+*https://file-tools-xbf0.onrender.com/*
 
 Проект готов к деплою на Render, Railway, Fly.io или любой VPS с поддержкой Java.
 
