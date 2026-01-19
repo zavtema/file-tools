@@ -1,110 +1,7 @@
 # FileTools — Minimal PDF Processing Service
 
-> 🇬🇧 English version below  
-> 🇷🇺 Русская версия — ниже
-
----
-
-## 🇬🇧 English
-
-### Overview
-
-FileTools is a small end-to-end web application for basic PDF processing tasks such as merging files, splitting documents, and deleting selected pages.
-
-The project is inspired by services like *iLovePDF*, but implemented as a clean, minimal, and fully self-contained demo application.  
-Its main goal is to demonstrate backend–frontend interaction, asynchronous job processing, and a clear API-driven architecture.
-
----
-
-### Features
-
-- **Merge PDFs**  
-  Combine multiple PDF files into a single document.
-
-- **Split PDF**  
-  Split one PDF into two separate files at a given page number.
-
-- **Delete Pages**  
-  Remove selected pages from a PDF using a simple page specification (e.g. `1,3,5-7`).
-
-- **Asynchronous processing**  
-  All operations are executed as background jobs with polling-based status updates.
-
-- **Single-page UI**  
-  Upload, process, and download files without leaving the page.
-
----
-
-### Tech Stack
-
-#### Backend
-- Java 21
-- Spring Boot
-- Spring Web (REST API)
-- Asynchronous job execution (`@Async`)
-- Apache PDFBox
-- Multipart file upload
-- Local file storage
-- JPA / Hibernate (Job & JobFile entities)
-
-#### Frontend
-- Vanilla JavaScript
-- HTML5
-- Tailwind CSS
-- Fetch API
-- Polling-based job status tracking
-- No frameworks, no build step
-
----
-
-### Architecture
-
-- Each user action creates a **Job**
-- Uploaded files are stored as **JobFiles**
-- Processing is handled by a **JobProcessor** based on `JobType`
-- Jobs are executed asynchronously in the background
-- The frontend polls job status until completion
-- Result files are downloaded via a dedicated endpoint
-
-The architecture is modular and extensible: new file operations can be added by implementing a new `JobProcessor`.
-
----
-
-### API Flow (Simplified)
-
-1. `POST /api/jobs` — create a job
-2. `POST /api/jobs/{jobId}/files` — upload input files
-3. `POST /api/jobs/{jobId}/start` — start processing
-4. `GET /api/jobs/{jobId}` — poll job status
-5. `GET /api/files/{fileId}/download` — download result
-
----
-
-### Deployment
-
-**Live demo:**  
-*https://file-tools-xbf0.onrender.com/*
-
-The project is designed to be easily deployable on platforms such as Render, Railway, Fly.io, or any VPS with Java support.
-
----
-
-### Purpose
-
-This project was built as:
-- a portfolio project,
-- a demonstration of clean backend architecture,
-- an example of asynchronous processing,
-- a simple but thoughtful UI/UX showcase.
-
----
-
-### Author
-
-Developed by **Zaviriukha Artemii**  
-Computer Science / Software Engineering
-
----
+> 🇷🇺 Русская версия — ниже  
+> 🇬🇧 English version below
 
 ---
 
@@ -205,4 +102,107 @@ FileTools — это небольшой end-to-end веб-проект для б
 ### Автор
 
 Разработчик: **Завирюха Артемий**  
+Computer Science / Software Engineering
+
+---
+
+---
+
+## 🇬🇧 English
+
+### Overview
+
+FileTools is a small end-to-end web application for basic PDF processing tasks such as merging files, splitting documents, and deleting selected pages.
+
+The project is inspired by services like *iLovePDF*, but implemented as a clean, minimal, and fully self-contained demo application.  
+Its main goal is to demonstrate backend–frontend interaction, asynchronous job processing, and a clear API-driven architecture.
+
+---
+
+### Features
+
+- **Merge PDFs**  
+  Combine multiple PDF files into a single document.
+
+- **Split PDF**  
+  Split one PDF into two separate files at a given page number.
+
+- **Delete Pages**  
+  Remove selected pages from a PDF using a simple page specification (e.g. `1,3,5-7`).
+
+- **Asynchronous processing**  
+  All operations are executed as background jobs with polling-based status updates.
+
+- **Single-page UI**  
+  Upload, process, and download files without leaving the page.
+
+---
+
+### Tech Stack
+
+#### Backend
+- Java 21
+- Spring Boot
+- Spring Web (REST API)
+- Asynchronous job execution (`@Async`)
+- Apache PDFBox
+- Multipart file upload
+- Local file storage
+- JPA / Hibernate (Job & JobFile entities)
+
+#### Frontend
+- Vanilla JavaScript
+- HTML5
+- Tailwind CSS
+- Fetch API
+- Polling-based job status tracking
+- No frameworks, no build step
+
+---
+
+### Architecture
+
+- Each user action creates a **Job**
+- Uploaded files are stored as **JobFiles**
+- Processing is handled by a **JobProcessor** based on `JobType`
+- Jobs are executed asynchronously in the background
+- The frontend polls job status until completion
+- Result files are downloaded via a dedicated endpoint
+
+The architecture is modular and extensible: new file operations can be added by implementing a new `JobProcessor`.
+
+---
+
+### API Flow (Simplified)
+
+1. `POST /api/jobs` — create a job
+2. `POST /api/jobs/{jobId}/files` — upload input files
+3. `POST /api/jobs/{jobId}/start` — start processing
+4. `GET /api/jobs/{jobId}` — poll job status
+5. `GET /api/files/{fileId}/download` — download result
+
+---
+
+### Deployment
+
+**Live demo:**  
+*https://file-tools-xbf0.onrender.com/*
+
+The project is designed to be easily deployable on platforms such as Render, Railway, Fly.io, or any VPS with Java support.
+
+---
+
+### Purpose
+
+This project was built as:
+- a portfolio project,
+- a demonstration of clean backend architecture,
+- an example of asynchronous processing,
+- a simple but thoughtful UI/UX showcase.
+
+---
+
+### Author
+
+Developed by **Zaviriukha Artemii**  
 Computer Science / Software Engineering
